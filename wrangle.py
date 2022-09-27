@@ -1,3 +1,4 @@
+import numpy as np
 import pandas as pd
 import requests
 import os
@@ -6,6 +7,8 @@ import unicodedata
 import re
 import nltk
 from nltk.corpus import stopwords
+from nltk.tokenize.toktok import ToktokTokenizer
+from sklearn.feature_extraction.text import TfidfVectorizer
 
 
 
@@ -58,13 +61,17 @@ def prepare(df):
 
     
     stopword_list = stopwords.words('english')
+    stopword_list.append('wine')
+    stopword_list.append('red')
+
+
     wnl = nltk.stem.WordNetLemmatizer()
 
     results = []
     for note in df.note:
         note = note.lower()
         note = unicodedata.normalize('NFKD', note).encode('ascii', 'ignore').decode('utf-8', 'ignore')
-        note = re.sub(r"[^a-z0-9'\s]", '', note)
+        note = re.sub(r"[^a-z'\s]", '', note)
         lemmas = [wnl.lemmatize(word) for word in note.split()]
         note_lemmatized = ' '.join(lemmas)
         words = note.split()
@@ -72,7 +79,6 @@ def prepare(df):
         note_without = ' '.join(filtered)
         results.append(note_without)
     df.note = results
-    
     
     
     return df
@@ -90,3 +96,16 @@ def split_data(df):
     train, validate = train_test_split(train, test_size = .25, random_state=123)
     
     return train, validate, test
+
+def add_nlp(df):
+    t = TfidfVectorizer()
+    X_nlp = t.fit_transform(df.note)
+    y = df.price
+    results = pd.DataFrame(X_nlp.todense(), columns=t.get_feature_names_out())
+    results = results.replace(0.0, np.nan)
+    results = results.dropna(axis='columns', thresh=319)
+    results = results.fillna(0)
+    results.index = df.index
+    df = pd.concat([df, results], axis=1)
+    
+    return df
