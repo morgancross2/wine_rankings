@@ -92,7 +92,7 @@ def run_models(train, val, test):
                     
 
     # Create Decision Tree model
-    tree = DecisionTreeClassifier(max_depth=4)
+    tree = DecisionTreeClassifier(max_depth=4, random_state=123)
     # Fit it
     tree.fit(X_train, y_train)
     # Add to results
@@ -117,7 +117,7 @@ def run_models(train, val, test):
     # Create best model dict to become dataframe of results
     final = {}
     # Create Decision Tree model
-    tree = DecisionTreeClassifier(max_depth=4)
+    tree = DecisionTreeClassifier(max_depth=4, random_state=123)
     # Fit it
     tree.fit(X_train, y_train)
     # Add to final
