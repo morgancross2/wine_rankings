@@ -9,8 +9,8 @@ This project is designed to predict the scoring of wine using the top 100 wines 
 #### Objectives:
 - Document code, process (data acquistion, preparation, exploratory data analysis and statistical testing, modeling, and model evaluation), findings, and key takeaways in a Jupyter Notebook Final Report.
 - Create modules (wrangle.py) that make the process repeateable and the report (notebook) easier to read and follow.
-- Ask exploratory questions of the data that will help you understand more about the attributes and drivers of customers churning. Answer questions through charts and statistical tests.
-- Construct a model to predict customer churn using classification techniques, and make predictions for a group of customers.
+- Ask exploratory questions of the data that will help you understand more about the attributes. Answer questions through charts and statistical tests.
+- Construct a model to predict wine score using classification techniques, and make predictions for a group of customers.
 - Refine work into a Report, in the form of a jupyter notebook, that you will walk through in a 5 minute presentation to a group of collegues and managers about the work you did, why, goals, what you found, your methdologies, and your conclusions.
 - Be prepared to answer panel questions about your code, process, findings and key takeaways, and model.
 
